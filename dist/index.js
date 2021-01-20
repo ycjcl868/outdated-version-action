@@ -245,10 +245,6 @@ const yarnOutdated = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     const yarnJson = parseYarnOutdatedJSON_1.default(myOutput);
     core.debug(yarnJson);
-    if (!yarnJson) {
-        core.setFailed('❌ JSON parse failed...');
-        return '';
-    }
     const formatter = new yarn_outdated_formatter_1.default('json', [], {});
     const json = JSON.parse(formatter.run(yarnJson));
     if (!json) {
