@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: outdated version
-        uses: ycjcl868@outdated-version-action@v1
+        uses: ycjcl868/outdated-version-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
