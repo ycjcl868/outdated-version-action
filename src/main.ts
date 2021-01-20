@@ -1,12 +1,20 @@
+import {Octokit} from '@octokit/rest'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as exec from '@actions/exec'
 
+const token: string = core.getInput('token')
+const octokit = new Octokit({auth: `token ${token}`})
+
 async function run(): Promise<void> {
   try {
+    const result = octokit.repos.listForOrg({
+      org: 'umijs',
+      type: 'public'
+    })
+    core.debug(`result: ${JSON.stringify(result, null, 2)}`)
     const {owner, repo} = github.context.repo
     core.info(`owner: ${owner}, repo: ${repo}`)
-    const token: string = core.getInput('token')
     core.debug(`Waiting ${token} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
 
     let myOutput = ''
