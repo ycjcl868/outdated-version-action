@@ -23,9 +23,7 @@ async function run(): Promise<void> {
         }
       }
     }
-    if (myError) {
-      core.error(myError)
-    }
+    core.debug(myError)
     await exec.exec('yarn', ['outdated'], options)
     core.info(myOutput)
 

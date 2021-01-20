@@ -23,3 +23,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
+        env:
+          ACTIONS_RUNNER_DEBUG: true
