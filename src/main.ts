@@ -10,6 +10,7 @@ async function run(): Promise<void> {
 
     const {number: issue_number} = github.context.issue || {}
     const {owner, repo} = github.context.repo
+    core.info(`${issue_number}`)
 
     // get yarn outdated
     const body = await yarnOutdated()
