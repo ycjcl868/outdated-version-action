@@ -25,7 +25,7 @@ jobs:
   release-helper:
     runs-on: ubuntu-latest
     steps:
-      - name: make release
+      - name: outdated version
         uses: ycjcl868@outdated-version-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
