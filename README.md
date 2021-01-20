@@ -4,6 +4,8 @@
   <a href="https://github.com/ycjcl868/outdated-version-action/actions"><img alt="typescript-action status" src="https://github.com/ycjcl868/outdated-version-action/workflows/build-test/badge.svg"></a>
 </p>
 
+![](https://user-images.githubusercontent.com/13595509/105183580-35b40b80-5ae3-11eb-8e43-b24b9bdcbcb9.png)
+
 ## Usage
 
 ### Inputs

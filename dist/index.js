@@ -71,7 +71,7 @@ function run() {
             }
         }
         catch (error) {
-            core.setOutput('ERROR', error.message);
+            core.setFailed(error.message);
         }
     });
 }
@@ -246,7 +246,7 @@ const yarnOutdated = () => __awaiter(void 0, void 0, void 0, function* () {
     const yarnJson = parseYarnOutdatedJSON_1.default(myOutput);
     core.debug(yarnJson);
     if (!yarnJson) {
-        core.setOutput('ERROR', '❌ JSON parse failed...');
+        core.setFailed('❌ JSON parse failed...');
         return '';
     }
     const formatter = new yarn_outdated_formatter_1.default('json', [], {});
