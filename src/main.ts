@@ -27,7 +27,7 @@ async function run(): Promise<void> {
       throw new Error(`❌ ${JSON.stringify(result, null, 2)}`)
     }
   } catch (error) {
-    core.setFailed(error.message)
+    core.setOutput('ERROR', error.message)
   }
 }
 

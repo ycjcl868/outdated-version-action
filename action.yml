@@ -6,9 +6,6 @@ inputs:
     required: true
     description: 'Github token'
     default: ${{ github.token }}
-  branch:
-    required: true
-    description: 'Branch'
 runs:
   using: 'node12'
   main: 'dist/index.js'
