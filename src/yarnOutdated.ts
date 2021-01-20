@@ -147,11 +147,6 @@ const yarnOutdated = async (): Promise<string> => {
   })
   const yarnJson = parseYarnOutdatedJSON(myOutput)
   core.debug(yarnJson)
-  if (!yarnJson) {
-    core.setFailed('❌ JSON parse failed...')
-    return ''
-  }
-
   const formatter = new Formatter('json', [], {})
   const json = JSON.parse(formatter.run(yarnJson))
   if (!json) {
