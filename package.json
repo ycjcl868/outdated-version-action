@@ -1,6 +1,6 @@
 {
   "name": "outdated-version-action",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Outdated dependencies version notifier for npm/yarn",
   "main": "lib/main.js",
