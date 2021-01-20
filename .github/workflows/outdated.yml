@@ -1,0 +1,13 @@
+name: Outdated Version
+on: [push]
+
+jobs:
+  outdated:
+    runs-on: ubuntu-latest
+    name: Outdated
+    steps:
+    - name: Outdated
+      uses: ycjcl868/outdated-version-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: 'main'

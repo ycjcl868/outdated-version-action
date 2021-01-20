@@ -1,11 +1,14 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Outedated Version'
+description: 'Outdated dependencies version notifier for npm/yarn'
+author: 'ycjcl868'
 inputs:
-  milliseconds: # change this
+  token:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Github token'
+    default: ${{ github.token }}
+  branch:
+    required: true
+    description: 'Branch'
 runs:
   using: 'node12'
   main: 'dist/index.js'
