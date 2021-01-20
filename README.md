@@ -2,6 +2,8 @@
 
 ![](https://user-images.githubusercontent.com/13595509/105183580-35b40b80-5ae3-11eb-8e43-b24b9bdcbcb9.png)
 
+![](https://user-images.githubusercontent.com/13595509/105187164-53836f80-5ae7-11eb-9ae9-40cb5044a89e.png)
+
 ## Usage
 
 ### Inputs
