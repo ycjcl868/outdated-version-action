@@ -6,7 +6,7 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
-    "release": "npm run all && np --yolo --no-publish --tag=v1",
+    "release": "npm run all && np --yolo --no-publish --tag=latest",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
