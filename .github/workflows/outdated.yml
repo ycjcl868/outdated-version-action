@@ -7,7 +7,7 @@ jobs:
     name: Outdated
     steps:
     - name: Outdated
-      uses: ycjcl868/outdated-version-action@v1
+      uses: ycjcl868/outdated-version-action@feat-init
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: 'main'
