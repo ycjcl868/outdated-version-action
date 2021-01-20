@@ -145,13 +145,14 @@ const yarnOutdated = async (): Promise<string> => {
       }
     }
   })
+  core.debug(myOutput)
   const yarnJson = parseYarnOutdatedJSON(myOutput)
+  if (!yarnJson) {
+    return '## :thumbsup: All packages are Fresh!'
+  }
   core.debug(yarnJson)
   const formatter = new Formatter('json', [], {})
-  const json = JSON.parse(formatter.run(yarnJson))
-  if (!json) {
-    return '### ✅ All packages are Fresh!'
-  }
+  const json = JSON.parse(formatter.run(yarnJson || {}))
   core.debug(json)
 
   const mdFormatter = new MarkdownFormatter()
