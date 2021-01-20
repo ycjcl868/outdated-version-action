@@ -22,7 +22,7 @@ name: Outdated Version Action
 on: push
 
 jobs:
-  release-helper:
+  outdated-version:
     runs-on: ubuntu-latest
     steps:
       - name: outdated version
