@@ -8,8 +8,13 @@ async function run(): Promise<void> {
     const token: string = core.getInput('token')
     const octokit = new Octokit({auth: `token ${token}`})
 
-    const {number: issue_number} = github.context.issue
+    const {number: issue_number} = github.context.issue || {}
     const {owner, repo} = github.context.repo
+
+    if (!issue_number) {
+      core.info('No issue number')
+      return
+    }
 
     // get yarn outdated
     const body = await yarnOutdated()

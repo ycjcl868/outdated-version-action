@@ -48,8 +48,12 @@ function run() {
         try {
             const token = core.getInput('token');
             const octokit = new rest_1.Octokit({ auth: `token ${token}` });
-            const { number: issue_number } = github.context.issue;
+            const { number: issue_number } = github.context.issue || {};
             const { owner, repo } = github.context.repo;
+            if (!issue_number) {
+                core.info('No issue number');
+                return;
+            }
             // get yarn outdated
             const body = yield yarnOutdated_1.default();
             core.debug(body);
@@ -67,7 +71,7 @@ function run() {
             }
         }
         catch (error) {
-            core.setFailed(error.message);
+            core.setOutput('ERROR', error.message);
         }
     });
 }
@@ -242,7 +246,7 @@ const yarnOutdated = () => __awaiter(void 0, void 0, void 0, function* () {
     const yarnJson = parseYarnOutdatedJSON_1.default(myOutput);
     core.debug(yarnJson);
     if (!yarnJson) {
-        core.setFailed('❌ JSON parse failed...');
+        core.setOutput('ERROR', '❌ JSON parse failed...');
         return '';
     }
     const formatter = new yarn_outdated_formatter_1.default('json', [], {});
