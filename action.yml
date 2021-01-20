@@ -1,13 +1,11 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Your name here'
+description: 'Provide a description here'
+author: 'Your name or organization here'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  milliseconds: # change this
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+    description: 'input description here'
+    default: 'default value if applicable'
 runs:
   using: 'node12'
   main: 'dist/index.js'
