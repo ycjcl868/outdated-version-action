@@ -64,44 +64,46 @@ class MarkdownFormatter {
   }
 
   toMarkdown(json: {[key: string]: any}): string {
-    const tpl = Handlebars.compile(`## :recycle: Hi, It's time to update the npm package!
-
-    **{{all.length}} npm packages** are outdated.
-    Let's begin maintenance to maintain a fresh package!
-    {{#if needsChangelog}}
-
-    ---
-    <details>
-      <summary>Packages</summary>
-      <ul>
-        {{#each needsChangelog as |pkg|}}
-        <li><a href="{{pkg.url}}">{{pkg.name}}</a></li>
-        {{/each}}
-      </ul>
-    </details>
-    {{/if}}
-    ---
-    {{#if outdated.major.packages}}
-
-
-    ## :warning: Major ({{outdated.major.packages.length}} packages)
-
-    {{{outdated.major.table}}}
-    {{/if}}
-    {{#if outdated.minor.packages}}
-
-
-    ## :zap: Minor ({{outdated.minor.packages.length}} packages)
-
-    {{{outdated.minor.table}}}
-    {{/if}}
-    {{#if outdated.patch.packages}}
-
-
-    ## :beginner: Patch ({{outdated.patch.packages.length}} packages)
-
-    {{{outdated.patch.table}}}
-    {{/if}}`)
+    const tpl = Handlebars.compile(
+      "## :recycle: Hi, It's time to update the npm package!\n" +
+        '\n' +
+        '**{{all.length}} npm packages** are outdated.\n' +
+        "Let's begin maintenance to maintain a fresh package!\n" +
+        '{{#if needsChangelog}}\n' +
+        '\n' +
+        '---\n' +
+        '<details>\n' +
+        '  <summary>Packages</summary>\n' +
+        '  <ul>\n' +
+        '    {{#each needsChangelog as |pkg|}}\n' +
+        '    <li><a href="{{pkg.url}}">{{pkg.name}}</a></li>\n' +
+        '    {{/each}}\n' +
+        '  </ul>\n' +
+        '</details>\n' +
+        '{{/if}}\n' +
+        '---\n' +
+        '{{#if outdated.major.packages}}\n' +
+        '\n' +
+        '\n' +
+        '## :warning: Major ({{outdated.major.packages.length}} packages)\n' +
+        '\n' +
+        '{{{outdated.major.table}}}\n' +
+        '{{/if}}\n' +
+        '{{#if outdated.minor.packages}}\n' +
+        '\n' +
+        '\n' +
+        '## :zap: Minor ({{outdated.minor.packages.length}} packages)\n' +
+        '\n' +
+        '{{{outdated.minor.table}}}\n' +
+        '{{/if}}\n' +
+        '{{#if outdated.patch.packages}}\n' +
+        '\n' +
+        '\n' +
+        '## :beginner: Patch ({{outdated.patch.packages.length}} packages)\n' +
+        '\n' +
+        '{{{outdated.patch.table}}}\n' +
+        '{{/if}}\n'
+    )
 
     const outdated: any = {}
     let all: any[] = []
