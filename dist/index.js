@@ -50,6 +50,7 @@ function run() {
             const octokit = new rest_1.Octokit({ auth: `token ${token}` });
             const { number: issue_number } = github.context.issue || {};
             const { owner, repo } = github.context.repo;
+            core.info(`${issue_number}`);
             // get yarn outdated
             const body = yield yarnOutdated_1.default();
             core.debug(body);
