@@ -137,6 +137,7 @@ function run() {
             core.info(`body: ${body}`);
             // find whether issueComment existed
             const comment = yield github_1.findExistedComment(owner, repo, issue_number);
+            core.info(`comment: ${JSON.stringify(comment)}`);
             if (comment) {
                 // existed;
                 core.info(`existedComment: ${comment.id}`);
