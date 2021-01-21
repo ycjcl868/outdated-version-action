@@ -20,9 +20,8 @@ create github action in `.github/workflows/outdated.yml`
 name: Outdated Version Action
 
 on:
-  push:
-      paths-ignore:
-        - '**/*.md'
+  pull_request:
+    types: [opened]
 
 jobs:
   outdated-version:
