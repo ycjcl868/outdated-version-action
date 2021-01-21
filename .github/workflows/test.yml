@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: yarn
+        run: yarn install
       - uses: ./
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
