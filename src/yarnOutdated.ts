@@ -147,7 +147,7 @@ const yarnOutdated = async (): Promise<string> => {
       }
     }
   })
-  core.debug(myOutput)
+  core.info(`output: ${myOutput}`)
   const yarnJson = parseYarnOutdatedJSON(myOutput)
   if (!yarnJson) {
     return '## :thumbsup: All packages are Fresh!'

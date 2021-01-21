@@ -10,11 +10,11 @@ async function run(): Promise<void> {
 
     const {number: issue_number} = github.context.issue || {}
     const {owner, repo} = github.context.repo
-    core.info(`${issue_number}`)
+    core.info(`issueNumber: ${issue_number}`)
 
     // get yarn outdated
     const body = await yarnOutdated()
-    core.debug(body)
+    core.info(`body: ${body}`)
     const result = await octokit.issues.createComment({
       issue_number,
       owner,

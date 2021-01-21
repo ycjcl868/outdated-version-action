@@ -50,10 +50,10 @@ function run() {
             const octokit = new rest_1.Octokit({ auth: `token ${token}` });
             const { number: issue_number } = github.context.issue || {};
             const { owner, repo } = github.context.repo;
-            core.info(`${issue_number}`);
+            core.info(`issueNumber: ${issue_number}`);
             // get yarn outdated
             const body = yield yarnOutdated_1.default();
-            core.debug(body);
+            core.info(`body: ${body}`);
             const result = yield octokit.issues.createComment({
                 issue_number,
                 owner,
@@ -242,7 +242,7 @@ const yarnOutdated = () => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
     });
-    core.debug(myOutput);
+    core.info(`output: ${myOutput}`);
     const yarnJson = parseYarnOutdatedJSON_1.default(myOutput);
     if (!yarnJson) {
         return '## :thumbsup: All packages are Fresh!';
