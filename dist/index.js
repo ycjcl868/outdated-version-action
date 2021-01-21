@@ -2,6 +2,81 @@ require('./sourcemap-register.js');module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 2363:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.COMMENT_FLAG = void 0;
+exports.COMMENT_FLAG = '<!-- Created by Outdated Version Action -->';
+
+
+/***/ }),
+
+/***/ 5928:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.findExistedComment = void 0;
+const rest_1 = __nccwpck_require__(5375);
+const core = __importStar(__nccwpck_require__(2186));
+const constant_1 = __nccwpck_require__(2363);
+const token = core.getInput('token');
+const octokit = new rest_1.Octokit({ auth: `token ${token}` });
+function findExistedComment(owner, repo, issueNumber) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield octokit.issues.listComments({
+            owner,
+            repo,
+            issue_number: issueNumber
+        });
+        core.info(`Actions: [find-comments][${issueNumber}] success!`);
+        const result = res.data.find(item => {
+            var _a;
+            if ((_a = item.body) === null || _a === void 0 ? void 0 : _a.includes(constant_1.COMMENT_FLAG)) {
+                return item;
+            }
+            return undefined;
+        });
+        return result;
+    });
+}
+exports.findExistedComment = findExistedComment;
+
+
+/***/ }),
+
 /***/ 3109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -42,6 +117,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const rest_1 = __nccwpck_require__(5375);
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
+const constant_1 = __nccwpck_require__(2363);
+const github_1 = __nccwpck_require__(5928);
 const yarnOutdated_1 = __importDefault(__nccwpck_require__(1135));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -50,13 +127,26 @@ function run() {
             const octokit = new rest_1.Octokit({ auth: `token ${token}` });
             const { number: issue_number } = github.context.payload.pull_request || {};
             const { owner, repo } = github.context.repo;
-            core.info(`issueNumber: ${issue_number}, owner: ${owner}, repo: ${owner}`);
+            core.info(`issueNumber: ${issue_number}, owner: ${owner}, repo: ${repo}`);
             if (!issue_number) {
                 return;
             }
             // get yarn outdated
-            const body = yield yarnOutdated_1.default();
+            const md = yield yarnOutdated_1.default();
+            const body = `${md}\n${constant_1.COMMENT_FLAG}`;
             core.info(`body: ${body}`);
+            // find whether issueComment existed
+            const comment = yield github_1.findExistedComment(owner, repo, issue_number);
+            if (comment) {
+                // existed;
+                core.info(`existedComment: ${comment.id}`);
+                yield octokit.issues.updateComment({
+                    owner,
+                    repo,
+                    comment_id: comment.id,
+                    body
+                });
+            }
             const result = yield octokit.issues.createComment({
                 issue_number,
                 owner,
