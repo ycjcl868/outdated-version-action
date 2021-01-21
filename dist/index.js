@@ -48,10 +48,9 @@ function run() {
         try {
             const token = core.getInput('token');
             const octokit = new rest_1.Octokit({ auth: `token ${token}` });
-            const { number: issue_number } = github.context.payload.issue || {};
-            core.info(`githubContext: ${JSON.stringify(github.context)}`);
+            const { number: issue_number } = github.context.payload.pull_request || {};
             const { owner, repo } = github.context.repo;
-            core.info(`issueNumber: ${issue_number}`);
+            core.info(`issueNumber: ${issue_number}, owner: ${owner}, repo: ${owner}`);
             if (!issue_number) {
                 return;
             }
