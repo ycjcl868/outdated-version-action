@@ -1,7 +1,12 @@
 name: 'build-test'
-on:
+on: # rebuild any PRs and main branch changes
   pull_request:
-    types: [opened]
+  push:
+    paths-ignore:
+      - '**/*.md'
+    branches:
+      - main
+      - 'releases/*'
 
 jobs:
   build: # make sure build/ci work properly

@@ -19,9 +19,7 @@ create github action in `.github/workflows/outdated.yml`
 ```yml
 name: Outdated Version Action
 
-on:
-  pull_request:
-    types: [opened]
+on: pull_request
 
 jobs:
   outdated-version:
