@@ -24,6 +24,7 @@ async function run(): Promise<void> {
     core.info(`body: ${body}`)
     // find whether issueComment existed
     const comment = await findExistedComment(owner, repo, issue_number)
+    core.info(`comment: ${JSON.stringify(comment)}`)
     if (comment) {
       // existed;
       core.info(`existedComment: ${comment.id}`)

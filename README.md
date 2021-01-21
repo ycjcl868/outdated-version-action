@@ -47,8 +47,9 @@ on:
 
 jobs:
   outdated-version:
-    runs-on: ubuntu-latest
+    name: Outdated Version
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/version')
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: install
