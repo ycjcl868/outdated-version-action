@@ -146,6 +146,7 @@ function run() {
                     comment_id: comment.id,
                     body
                 });
+                return;
             }
             const result = yield octokit.issues.createComment({
                 issue_number,
