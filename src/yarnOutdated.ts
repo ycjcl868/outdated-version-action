@@ -137,7 +137,9 @@ class MarkdownFormatter {
 
 const yarnOutdated = async (): Promise<string> => {
   let myOutput = ''
+  core.info(`cwd: ${process.cwd()}`)
   await exec.exec('yarn', ['outdated', '--json'], {
+    cwd: process.cwd(),
     ignoreReturnCode: true,
     listeners: {
       stdout: (data: Buffer) => {
