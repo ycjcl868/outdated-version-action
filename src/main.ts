@@ -11,7 +11,8 @@ async function run(): Promise<void> {
     const token: string = core.getInput('token')
     const octokit = new Octokit({auth: `token ${token}`})
 
-    const {number: issue_number} = github.context.payload.pull_request || {}
+    const {number: issue_number} =
+      github.context.payload.pull_request || github.context.issue || {}
     const {owner, repo} = github.context.repo
     core.info(`issueNumber: ${issue_number}, owner: ${owner}, repo: ${repo}`)
     if (!issue_number) {
