@@ -19,11 +19,36 @@ create github action in `.github/workflows/outdated.yml`
 ```yml
 name: Outdated Version Action
 
-on: pull_request
+on:
+  pull_request:
+    types: [opened, edited]
 
 jobs:
   outdated-version:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install
+        run: yarn --ignore-engines
+      - name: outdated version
+        uses: ycjcl868/outdated-version-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Or you can comment `/version` to trigger:
+
+```yml
+name: Outdated Version Action
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  outdated-version:
+    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/version')
     steps:
       - uses: actions/checkout@v2
       - name: install
