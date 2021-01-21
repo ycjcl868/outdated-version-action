@@ -9,7 +9,7 @@ async function run(): Promise<void> {
     const octokit = new Octokit({auth: `token ${token}`})
 
     const {number: issue_number} = github.context.payload.issue || {}
-    core.info(`githubContext: ${JSON.stringify(github.context.issue)}`)
+    core.info(`githubContext: ${JSON.stringify(github.context)}`)
     const {owner, repo} = github.context.repo
     core.info(`issueNumber: ${issue_number}`)
     if (!issue_number) {
