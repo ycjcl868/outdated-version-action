@@ -48,12 +48,16 @@ function run() {
         try {
             const token = core.getInput('token');
             const octokit = new rest_1.Octokit({ auth: `token ${token}` });
-            const { number: issue_number } = github.context.issue || {};
+            const { number: issue_number } = github.context.payload.issue || {};
+            core.info(`githubContext: ${JSON.stringify(github.context.issue)}`);
             const { owner, repo } = github.context.repo;
-            core.info(`${issue_number}`);
+            core.info(`issueNumber: ${issue_number}`);
+            if (!issue_number) {
+                return;
+            }
             // get yarn outdated
             const body = yield yarnOutdated_1.default();
-            core.debug(body);
+            core.info(`body: ${body}`);
             const result = yield octokit.issues.createComment({
                 issue_number,
                 owner,
@@ -232,7 +236,9 @@ class MarkdownFormatter {
 }
 const yarnOutdated = () => __awaiter(void 0, void 0, void 0, function* () {
     let myOutput = '';
+    core.info(`cwd: ${process.cwd()}`);
     yield exec.exec('yarn', ['outdated', '--json'], {
+        cwd: process.cwd(),
         ignoreReturnCode: true,
         listeners: {
             stdout: (data) => {
@@ -240,7 +246,7 @@ const yarnOutdated = () => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
     });
-    core.debug(myOutput);
+    core.info(`output: ${myOutput}`);
     const yarnJson = parseYarnOutdatedJSON_1.default(myOutput);
     if (!yarnJson) {
         return '## :thumbsup: All packages are Fresh!';
