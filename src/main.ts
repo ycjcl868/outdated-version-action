@@ -33,6 +33,7 @@ async function run(): Promise<void> {
         comment_id: comment.id,
         body
       })
+      return
     }
 
     const result = await octokit.issues.createComment({
