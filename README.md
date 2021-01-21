@@ -25,6 +25,9 @@ jobs:
   outdated-version:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: install
+        run: yarn --ignore-engines
       - name: outdated version
         uses: ycjcl868/outdated-version-action@v1
         with:
